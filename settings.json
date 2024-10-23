@@ -1,18 +1,18 @@
 {
-    // updates disabled
+    // Disable automatic updates
     "extensions.autoCheckUpdates": false,
     "update.enableWindowsBackgroundUpdates": false,
     "extensions.autoUpdate": false,
     "update.showReleaseNotes": false,
     "update.mode": "none",
-    //terminal
+    // Terminal settings
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.cursorWidth": 2,
     "terminal.integrated.enableFileLinks": "off",
     "terminal.integrated.scrollback": 50,
     "terminal.integrated.defaultProfile.windows": "Command Prompt",
-    //editor
+    // Editor settings
     "editor.minimap.enabled": false,
     "editor.find.seedSearchStringFromSelection": "selection",
     "editor.accessibilitySupport": "off",
@@ -27,18 +27,18 @@
     "editor.selectionHighlight": false,
     "editor.unicodeHighlight.ambiguousCharacters": false,
     "editor.unicodeHighlight.includeStrings": false,
-    // comment like "this is stop sign"
+    // Debug settings
     "debug.autoExpandLazyVariables": "on",
     "debug.inlineValues": "on",
     "debug.terminal.clearBeforeReusing": true,
-    // disable or change junk features
+    // Disable or adjust extra features
     "window.commandCenter": false,
     "workbench.startupEditor": "none",
     "explorer.autoReveal": false,
     "explorer.compactFolders": false,
     "files.autoSave": "afterDelay",
     "breadcrumbs.enabled": true,
-    "breadcrumbs.icons": false,
+    "breadcrumbs.icons": true,
     "workbench.cloudChanges.autoResume": "off",
     "workbench.cloudChanges.continueOn": "off",
     "workbench.enableExperiments": false,
@@ -50,40 +50,60 @@
     "telemetry.telemetryLevel": "off",
     "extensions.closeExtensionDetailsOnViewChange": true,
     "settingsSync.keybindingsPerPlatform": false,
+    // Visual settings
     "workbench.colorTheme": "Best Themes - Monokai Night Time Italic",
     "workbench.iconTheme": "material-icon-theme",
     "workbench.productIconTheme": "bootstrap-product-icons",
-    // git
+    // Git settings
     "git.autoRepositoryDetection": "subFolders",
-    //Setting up Pylance and code analysis.
-    "python.languageServer": "Pylance",
-    "python.analysis.typeCheckingMode": "off",
-    "python.analysis.diagnosticMode": "openFilesOnly",
-    "python.analysis.autoSearchPaths": true,
-    "python.analysis.autoImportCompletions": true,
+    // Python, Pylance, and code analysis settings
     "python.analysis.completeFunctionParens": true,
-    "python.analysis.importFormat": "absolute",
-    // Enable display of variable typing.
+    "python.analysis.typeCheckingMode": "off",
+    // Enable both Ruff for linting and Pylance for auto-imports and IntelliSense
+    "python.linting.enabled": true,
+    "python.linting.ruffEnabled": true,
+    "python.linting.ruffArgs": [
+        "--fix"
+    ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit"
+    },
+    "python.analysis.diagnosticMode": "workspace",
+    "python.analysis.autoSearchPaths": true,
+    "python.analysis.useLibraryCodeForTypes": true,
+    "python.analysis.autoImportCompletions": true, // Ensures auto-import completions
     "python.analysis.inlayHints.variableTypes": true,
     "python.analysis.inlayHints.functionReturnTypes": true,
     "python.analysis.enablePytestSupport": true,
     "python.analysis.indexing": true,
+    // Import formatting settings
+    "python.analysis.importFormat": "absolute",
     "python.analysis.packageIndexDepths": [
         {
-            "name": "aiogram", //here is the library you need
+            "name": "aiogram",
             "depth": 3,
             "includeAllSymbols": true
         },
-        //like this:
         {
             "name": "django",
             "depth": 3,
             "includeAllSymbols": true
+        },
+        {
+            "name": "djangorestframework",
+            "depth": 10,
+            "includeAllSymbols": true
         }
     ],
+    // Python formatting and linting for Django
     "[python]": {
-        "editor.defaultFormatter": "ms-python.black-formatter"
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "charliermarsh.ruff", // Ruff as the default formatter
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "explicit"
+        }
     },
+    // File explorer nesting patterns
     "explorer.fileNesting.patterns": {
         "*.ts": "${capture}.js",
         "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
@@ -98,12 +118,13 @@
         "*.sdb": "${capture}.${extname}-*",
         "*.s3db": "${capture}.${extname}-*"
     },
+    // General editor settings
     "editor.formatOnSave": true,
     "explorer.confirmDelete": false,
     "terminal.integrated.fontFamily": "Consolas",
     "editor.fontFamily": "JetBrains Mono",
     "editor.fontLigatures": true,
-    // for django:
+    // Django-specific settings
     "emmet.includeLanguages": {
         "django-html": "html"
     },
@@ -114,6 +135,7 @@
         "**/templates/*": "django-html",
         "**/requirements{/**,*}.{txt,in}": "pip-requirements"
     },
+    // Editor settings for Django-HTML
     "[django-html]": {
         "breadcrumbs.showClasses": true,
         "editor.quickSuggestions": {
@@ -122,23 +144,20 @@
             "strings": true
         }
     },
+    // Semantic token customizations for Python
     "editor.semanticTokenColorCustomizations": {
         "[Best Themes - Monokai Night Time Italic]": {
             "enabled": true,
             "rules": {
-                // Customize function calls for Python (e.g., built-in functions, magic methods)
-                "magicFunction:python": "#ff6699", // Pinkish-red to match Monokai tones
-                // Customize Python function declarations (e.g., user-defined functions)
-                "function.declaration:python": "#66cc66", // Soft green for consistency with Monokai
-                // Customize decorators in Python (e.g., @staticmethod, @property)
-                "*.decorator:python": "#66d9ef", // Cyan blue for clarity and matching Monokai's palette
-                // Customize type hints in Python (e.g., `def foo(x: int)`)
-                "*.typeHint:python": "#a6e22e", // Lime green for high contrast
-                // Customize type hint comments (e.g., `# type: int`)
-                "*.typeHintComment:python": "#75715e" // Grayish-brown for subtle hints without distraction
+                "magicFunction:python": "#ff6699",
+                "function.declaration:python": "#66cc66",
+                "*.decorator:python": "#66d9ef",
+                "*.typeHint:python": "#a6e22e",
+                "*.typeHintComment:python": "#75715e"
             }
         }
     },
+    // Display settings
     "window.zoomLevel": 0.7,
     "editor.fontSize": 12
 }
