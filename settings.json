@@ -57,7 +57,7 @@
     // Git settings
     "git.autoRepositoryDetection": "subFolders",
     // Python, Pylance, and code analysis settings
-    "python.analysis.completeFunctionParens": true,
+    "python.analysis.completeFunctionParens": false, // Turs off auto opening closing ( )
     "python.analysis.typeCheckingMode": "off",
     // Enable both Ruff for linting and Pylance for auto-imports and IntelliSense
     "python.linting.enabled": true,
@@ -98,7 +98,7 @@
     // Python formatting and linting for Django
     "[python]": {
         "editor.formatOnSave": true,
-        "editor.defaultFormatter": "charliermarsh.ruff", // Ruff as the default formatter
+        "editor.defaultFormatter": "ms-python.black-formatter", // Ruff as the default formatter
         "editor.codeActionsOnSave": {
             "source.fixAll": "explicit"
         }
@@ -159,5 +159,10 @@
     },
     // Display settings
     "window.zoomLevel": 0.7,
-    "editor.fontSize": 12
+    "editor.fontSize": 12,
+    "files.exclude": {
+        "**/__pycache__": true
+    },
+    "git.enableSmartCommit": true,
+    "git.autofetch": true
 }
